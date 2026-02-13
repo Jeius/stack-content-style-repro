@@ -1,25 +1,40 @@
 import React from "react";
+import { ScrollView, Text, View } from "react-native";
 
-import { Text, View } from "@/tw";
-
-export default function Page() {
+export default function HomeTab() {
   return (
-    <View className="flex-1">
-      <View className="py-12 md:py-24 lg:py-32 xl:py-48">
-        <View className="px-4 md:px-6">
-          <View className="flex flex-col items-center gap-4 text-center">
-            <Text
-              role="heading"
-              className="text-3xl text-center native:text-5xl font-bold sm:text-4xl md:text-5xl lg:text-6xl font-rounded"
-            >
-              Welcome to Project ACME
-            </Text>
-            <Text className="mx-auto max-w-[700px] text-lg text-center text-gray-500 md:text-xl dark:text-gray-400">
-              Discover and collaborate on acme. Explore our services now.
-            </Text>
-          </View>
-        </View>
+    <ScrollView className="flex-1 bg-white" contentContainerClassName="p-5 grow">
+      <Text className="text-2xl font-bold mb-4">
+        Stack contentStyle Bug Demo
+      </Text>
+      <Text className="text-base text-gray-500 mb-5">
+        This app demonstrates an issue with expo-router Stack's `contentStyle`
+        where `pointerEvents` doesn't work properly.
+      </Text>
+
+      <View className="bg-amber-100 p-4 rounded-lg border-l-4 border-amber-500 mb-5">
+        <Text className="font-bold mb-2">
+          📋 Test Instructions:
+        </Text>
+        <Text className="leading-6">
+          1. Go to "Simple Tab" ✅ - the button IS clickable{"\n"}
+          2. Go to "Nested Stack" ❌ - the button is NOT clickable{"\n"}
+          3. Both have the same configuration{"\n"}
+          4. This shows Stack's contentStyle pointerEvents doesn't work
+        </Text>
       </View>
-    </View>
+
+      <View className="bg-indigo-100 p-4 rounded-lg border-l-4 border-indigo-500">
+        <Text className="font-bold mb-2">
+          🔍 What to Look For:
+        </Text>
+        <Text className="leading-6">
+          • Simple Tab: Button click works ✅{"\n"}
+          • Nested Stack: Button click doesn't work ❌{"\n"}
+          • Same button, same configuration{"\n"}
+          • Different behavior!
+        </Text>
+      </View>
+    </ScrollView>
   );
 }

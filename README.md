@@ -1,20 +1,52 @@
-# Expo Router and Tailwind CSS
+# Stack contentStyle pointerEvents Issue Reproduction
 
-Use [Expo Router](https://docs.expo.dev/router/introduction/) with [Nativewind](https://www.nativewind.dev/v4/overview/) styling.
+This repository is a minimal reproduction of an issue with expo-router Stack's `contentStyle` where the `pointerEvents` property does not work as expected in Stack `screenOptions`.
 
-## Launch your own
+## Issue Description
 
-[![Launch with Expo](https://github.com/expo/examples/blob/master/.gh-assets/launch.svg?raw=true)](https://launch.expo.dev/?github=https://github.com/expo/examples/tree/master/with-tailwindcss)
+The `pointerEvents` property in Stack's `contentStyle` does not allow touch events to pass through to elements positioned behind the Stack navigator, even when set to `'box-none'`.
+
+### Navigation Structure
+
+- **Root Layout**: Contains a button positioned under the Tabs navigator
+- **Tabs Navigator**: Main tab navigation
+- **Stack Navigator**: Nested inside a Tab Screen
+- **Expected Behavior**: Button behind the Stack should be interactable when `pointerEvents='box-none'` is set in both Stack and Tab screen options
+- **Actual Behavior**: Button remains non-interactable despite `pointerEvents='box-none'` configuration
+
+### Configuration
+
+Both Stack and Tabs navigators have `screenOptions` configured with:
+
+```tsx
+<Stack.Screen
+  options={{
+    contentStyle: {
+      pointerEvents: "box-none",
+    },
+  }}
+/>
+```
+
+```tsx
+<Tabs.Screen
+  options={{
+    sceneStyle: {
+      pointerEvents: "box-none",
+    },
+  }}
+/>
+```
+
+However, elements positioned behind the Stack navigator remain non-interactable.
 
 ## 🚀 How to use
 
 ```sh
-npx create-expo-app -e with-tailwindcss
+pnpm install
+pnpm start
 ```
 
-## Deploy
+## Related Issue
 
-Deploy on all platforms with Expo Application Services (EAS).
-
-- Deploy the website: `npx eas-cli deploy` — [Learn more](https://docs.expo.dev/eas/hosting/get-started/)
-- Deploy on iOS and Android using: `npx eas-cli build` — [Learn more](https://expo.dev/eas)
+This reproduction demonstrates that `pointerEvents` in Stack's `contentStyle` does not propagate touch events through the navigation hierarchy as expected.

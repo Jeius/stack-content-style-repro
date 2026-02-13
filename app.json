@@ -1,15 +1,19 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "stack-content-style-repro",
     "userInterfaceStyle": "automatic",
     "orientation": "default",
     "web": {
-      "output": "static"
+      "output": "static",
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router"
     ],
     "name": "stack-content-style-repro",
-    "slug": "stack-content-style-repro"
+    "slug": "stack-content-style-repro",
+    "android": {
+      "package": "com.lactalink.stackcontentstylerepro"
+    }
   }
 }

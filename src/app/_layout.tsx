@@ -1,69 +1,73 @@
-import "../global.css";
-import { Slot } from "expo-router";
+import "../global.css"
 
+import { Tabs } from "expo-router";
+import { Alert } from "react-native";
+import { Pressable, Text, View } from 'react-native'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Text, View, Image, Link } from "@/tw";
-
-export default function Layout() {
+export default function RootLayout() {
+  const insets = useSafeAreaInsets();
   return (
-    <View className="flex flex-1 bg-white">
-      <Header />
-      <Slot />
-      <Footer />
-    </View>
-  );
-}
-
-function Header() {
-  const { top } = useSafeAreaInsets();
-  return (
-    <View style={{ paddingTop: top }}>
-      <View className="px-4 lg:px-6 h-14 flex items-center flex-row">
-        <Image
-          source="https://simpleicons.org/icons/expo.svg"
-          className="w-6 h-6 object-contain mr-2"
-        />
-        <Link className="font-bold flex-1 items-center justify-center" href="/">
-          ACME
-        </Link>
-        <View className="flex flex-row gap-4 sm:gap-6">
-          <Link
-            className="text-md font-medium hover:underline web:underline-offset-4"
-            href="/"
-          >
-            About
-          </Link>
-          <Link
-            className="text-md font-medium hover:underline web:underline-offset-4"
-            href="/"
-          >
-            Product
-          </Link>
-          <Link
-            className="text-md font-medium hover:underline web:underline-offset-4"
-            href="/"
-          >
-            Pricing
-          </Link>
-        </View>
-      </View>
-    </View>
-  );
-}
-
-function Footer() {
-  const { bottom } = useSafeAreaInsets();
-  return (
-    <View
-      className="flex shrink-0 bg-gray-100 native:hidden"
-      style={{ paddingBottom: bottom }}
-    >
-      <View className="py-6 flex-1 items-start px-4 md:px-6 ">
-        <Text className={"text-center text-gray-700"}>
-          © {new Date().getFullYear()} Me
+    <View className="flex-1 bg-white">
+      {/* Button positioned behind the tabs - demonstrates pointer events behavior */}
+      <Pressable
+        onPress={() => Alert.alert("Success!", "Button behind tabs was clicked!")}
+        className="absolute inset-x-5 bg-blue-500 rounded-xl p-4"
+        style={{ bottom: insets.bottom + 60 }} // Position above the tab bar
+      >
+        <Text className="text-center font-bold text-base">
+          🎯 Try to Click Me! (Behind Tabs)
         </Text>
-      </View>
+      </Pressable>
+
+      <Tabs
+        screenOptions={{
+          headerShown: true,
+          animation: 'shift',
+          headerStyle: {
+            backgroundColor: "#f3f4f6",
+          },
+          sceneStyle: {
+            backgroundColor: "transparent",
+            // This allows pointer events to pass through for Tab screens
+            pointerEvents: "box-none",
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color }) => (
+              <View>
+                <Text style={{ color }}>🏠</Text>
+              </View>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="simple-tab"
+          options={{
+            title: "Simple Tab",
+            tabBarIcon: ({ color }) => (
+              <View>
+                <Text style={{ color }}>✅</Text>
+              </View>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="nested-stack"
+          options={{
+            title: "Nested Stack",
+            tabBarIcon: ({ color }) => (
+              <View>
+                <Text style={{ color }}>❌</Text>
+              </View>
+            ),
+          }}
+        />
+      </Tabs>
     </View>
   );
 }
