@@ -14,6 +14,15 @@
     "slug": "stack-content-style-repro",
     "android": {
       "package": "com.lactalink.stackcontentstylerepro"
+    },
+    "ios": {
+      "bundleIdentifier": "com.lactalink.stackcontentstylerepro"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "178f619d-12a5-47b9-8ae2-005c854de120"
+      }
     }
   }
 }

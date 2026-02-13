@@ -7,7 +7,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "deploy": "npx expo export -p web && npx eas-cli@latest deploy"
+    "deploy": "npx expo export -p web && npx eas-cli@latest deploy",
+    "build:dev:android:local": "eas build --profile development --platform android --local --output ./builds/dev/android",
+    "build:android:local": "eas build --profile preview --platform android --local --output ./builds/android"
   },
   "dependencies": {
     "expo": "~54.0.33",
